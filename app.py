@@ -37,7 +37,7 @@ def get_ip_info(ip):
     """Uses the ip of the remote user to get the city"""
     if GEO_API_KEY is None:
         return None
-    url = f"https://api.geoapify.com/v1/ipinfo?{ip}&apiKey={GEO_API_KEY}"
+    url = f"https://api.geoapify.com/v1/ipinfo?ip={ip}&apiKey={GEO_API_KEY}"
     ip_info = requests.get(url).json()
     return ip_info.get("city", {})
 
