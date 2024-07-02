@@ -3,3 +3,4 @@
 venv/
 
 # exclude env file
+.env*
