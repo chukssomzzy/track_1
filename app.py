@@ -20,7 +20,7 @@ def index_route():
 def hello_route():
     """Get the city of the user and the temperature of the city"""
     client_name = request.args.get("name", "Mentor 🙌")
-    client_ip = request.referrer
+    client_ip = request.environ.get("HTTP_X_REAL_IP", request.remote_addr)
 
     response = {"client_ip": client_ip}
     city = get_ip_info(client_ip)
