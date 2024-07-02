@@ -25,6 +25,7 @@ def hello_route():
     response = {"client_ip": client_ip}
     city = get_ip_info(client_ip)
     if city:
+        response["test"] = city
         city = city.get("names", {}).get("en", "Unknown")
         response["city"] = city
     city_temp = get_city_temp(city)
@@ -51,7 +52,6 @@ def get_city_temp(city):
     url = \
         f"https://api.weatherapi.com/v1/current.json?key={TEMP_API_KEY}&q={city}&aqi=no"
     temp_info = requests.get(url).json()
-    print(temp_info, TEMP_API_KEY)
     return temp_info.get("current", {}).get("temp_c", 0)
 
 
