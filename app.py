@@ -40,14 +40,18 @@ def get_ip_info(ip):
         return None
     url = f"https://api.geoapify.com/v1/ipinfo?{ip}&apiKey={GEO_API_KEY}"
     ip_info = requests.get(url).json()
+    print(ip_info, GEO_API_KEY)
     return ip_info
 
 
 def get_city_temp(city):
     """Given a city get the temperature of the city"""
+    if TEMP_API_KEY:
+        return 0
     url = \
         f"https://api.weatherapi.com/v1/current.json?key={TEMP_API_KEY}&q={city}&aqi=no"
     temp_info = requests.get(url).json()
+    print(temp_info, TEMP_API_KEY)
     return temp_info.get("current", {}).get("temp_c", 0)
 
 
