@@ -19,7 +19,7 @@ def index_route():
 @app.route("/api/hello", strict_slashes=False)
 def hello_route():
     """Get the city of the user and the temperature of the city"""
-    client_name = request.args.get("vistor_name", "Mentor 🙌")
+    client_name = request.args.get("vistor_name", "Mentor 🙌").replace("\"", "")
     client_ip = request.environ.get("HTTP_X_REAL_IP", request.remote_addr)
 
     response = {"client_ip": client_ip}
@@ -39,6 +39,7 @@ def get_ip_info(ip):
         return None
     url = f"https://api.geoapify.com/v1/ipinfo?ip={ip}&apiKey={GEO_API_KEY}"
     ip_info = requests.get(url).json()
+    print(ip_info)
     return ip_info.get("city", {})
 
 
