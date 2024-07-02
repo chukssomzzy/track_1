@@ -25,11 +25,9 @@ def hello_route():
     response = {"client_ip": client_ip}
     city = get_ip_info(client_ip)
     if city:
-        response["test"] = city
         city = city.get("names", {}).get("en", "Unknown")
         response["city"] = city
     city_temp = get_city_temp(city)
-
     response["gretting"] = \
         f"Hello {client_name}!, the temperature is {city_temp} degrees in {city}"
     return make_response(response, 200)
@@ -41,13 +39,12 @@ def get_ip_info(ip):
         return None
     url = f"https://api.geoapify.com/v1/ipinfo?{ip}&apiKey={GEO_API_KEY}"
     ip_info = requests.get(url).json()
-    print(ip_info, GEO_API_KEY)
-    return ip_info
+    return ip_info.get("city", {})
 
 
 def get_city_temp(city):
     """Given a city get the temperature of the city"""
-    if TEMP_API_KEY:
+    if TEMP_API_KEY is None or city is None:
         return 0
     url = \
         f"https://api.weatherapi.com/v1/current.json?key={TEMP_API_KEY}&q={city}&aqi=no"
