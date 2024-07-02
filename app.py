@@ -26,10 +26,10 @@ def hello_route():
     city = get_ip_info(client_ip)
     if city:
         city = city.get("names", {}).get("en", "Unknown")
-        response["city"] = city
+        response["location"] = city
     city_temp = get_city_temp(city)
     response["gretting"] = \
-        f"Hello {client_name}!, the temperature is {city_temp} degrees in {city}"
+        f"Hello, {client_name}!, the temperature is {city_temp} degrees Celcius in {city}"
     return make_response(response, 200)
 
 
